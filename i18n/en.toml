@@ -1,2 +1,6 @@
 [translations]
 other = "Translations"
+[category]
+other = "Category"
+[categories]
+other = "Categories"

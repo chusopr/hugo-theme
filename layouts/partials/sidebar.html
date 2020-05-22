@@ -11,10 +11,24 @@
     <section>
         <hr class="hidden-sm hidden-xs">
         <h5>{{ i18n "translations" }}</h5>
-        <menu class="languages">
+        <menu class="sidebar-menu-list languages">
             {{ range $.AllTranslations }}
 	    <li><img src="/img/lang/{{ .Language }}.png"> <a lang="{{ .Language }}" hreflang="{{ .Language }}" href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
             {{ end}}
+        </menu>
+    </section>
+    {{ end }}
+
+    {{ if not .Site.Params.omit_categories }}
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>{{ i18n "categories" }}</h5>
+        <menu class="sidebar-menu-list languages">
+        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        <li>
+            <a href="{{ $name | relLangURL }}">{{ $name | humanize }}</a>
+        </li>
+        {{ end }}
         </menu>
     </section>
     {{ end }}

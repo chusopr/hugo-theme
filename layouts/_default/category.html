@@ -1,0 +1,17 @@
+{{ define "main" }}
+{{ $pagecat := .Params.pagecat }}
+<h2>{{ i18n "category" }}: {{ .Title }}</h2>
+<p>{{ .Description }}</p>
+<ul>
+{{ range $key, $taxonomy := .Site.Taxonomies.categories }}
+  {{ if eq $key $pagecat }}
+    {{ range $taxonomy.Pages }}
+    <li>
+      <a href="{{ .Permalink }}">{{ .Title }}</a><br />
+      {{ .Summary }}
+    </li>
+    {{ end }}
+  {{ end }}
+{{ end }}
+</ul>
+{{ end }}
