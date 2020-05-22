@@ -4,3 +4,7 @@ other = "Translations"
 other = "Category"
 [categories]
 other = "Categories"
+[tag]
+other = "Tag"
+[tags]
+other = "Tags"

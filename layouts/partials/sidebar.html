@@ -37,12 +37,12 @@
     {{ if .Site.Params.featured_tags }}
     <section>
         <hr class="hidden-sm hidden-xs">
-        <h5>Tags</h5>
+        <h5>{{ i18n "tags" }}</h5>
         <div class="tags">
             {{ $featured_condition_size := .Site.Params.featured_condition_size }} 
             {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
                {{ if gt (len $taxonomy.Pages) $featured_condition_size }} 
-                    <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" title="{{ $name }}">
+                    <a href="{{ "/tag/" | relLangURL }}{{ $name | urlize }}" title="{{ $name }}">
                         {{ $name }}
                     </a>
                {{ end }} 
