@@ -7,6 +7,18 @@
     col-xs-12
     sidebar-container
 ">
+    {{ if .IsTranslated }}
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>{{ i18n "translations" }}</h5>
+        <menu class="languages">
+            {{ range $.AllTranslations }}
+	    <li><img src="/img/lang/{{ .Language }}.png"> <a lang="{{ .Language }}" hreflang="{{ .Language }}" href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
+            {{ end}}
+        </menu>
+    </section>
+    {{ end }}
+
     <!-- Featured Tags -->
     {{ if .Site.Params.featured_tags }}
     <section>
