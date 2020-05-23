@@ -24,9 +24,9 @@
         <hr class="hidden-sm hidden-xs">
         <h5>{{ i18n "categories" }}</h5>
         <menu class="sidebar-menu-list languages">
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        {{ range $category := where (where .Site.Pages "Type" "categories") "IsPage" true }}
         <li>
-            <a href="{{ $name | relLangURL }}">{{ $name | humanize }}</a>
+            <a href="{{ $category.Permalink }}">{{ $category.Title }}</a>
         </li>
         {{ end }}
         </menu>

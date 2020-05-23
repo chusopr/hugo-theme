@@ -20,12 +20,15 @@
                     <h1>{{ .Title }}</h1>
                     <h2 class="subheading">{{ .Params.subtitle }}</h2>
                     <span class="meta">
-                        Posted by 
+                        Posted
+                        {{ if .Site.Params.show_author }}
+                        by
                         {{ if .Params.author }}
                             {{ .Params.author }}
                         {{ else }}
                                 {{ .Site.Title }}
                         {{ end }} 
+                        {{ end }}
                         on 
                         {{ .Date.Format "Monday, January 2, 2006" }}
                         {{ if .Site.Params.page_view_conter }}
@@ -35,6 +38,14 @@
                         {{ if (and (not .Lastmod.IsZero) (not (eq (dateFormat "2006-01-02" .Lastmod) (dateFormat "2006-01-02" .Date)))) }}
                         <br>Last Modified on {{ dateFormat "Monday, January 2, 2006" .Params.LastMod }}
                         {{ end }}
+                        {{ if isset .Params "categories" }}
+                        in
+                          {{ range $first, $category := .Params.categories }}<!--
+                          -->{{ with $.Site.GetPage (printf "/categories/%s" $category) }}<!--
+                             -->{{ if $first }},{{ end }}
+                                <a href="{{ .Permalink }}">{{ .Title }}</a>{{ end }}<!--
+                          -->{{ end }}
+                          {{ end }}
                     </span>
                 </div>
             </div>

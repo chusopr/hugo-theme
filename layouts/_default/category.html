@@ -1,17 +1,32 @@
 {{ define "main" }}
 {{ $pagecat := .Params.pagecat }}
-<h2>{{ i18n "category" }}: {{ .Title }}</h2>
-<p>{{ .Description }}</p>
-<ul>
-{{ range $key, $taxonomy := .Site.Taxonomies.categories }}
-  {{ if eq $key $pagecat }}
-    {{ range $taxonomy.Pages }}
-    <li>
-      <a href="{{ .Permalink }}">{{ .Title }}</a><br />
-      {{ .Summary }}
-    </li>
-    {{ end }}
-  {{ end }}
-{{ end }}
-</ul>
+
+<div class="container">
+    <div class="row">
+        <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+
+          <h2>{{ i18n "category" }}: {{ .Title }}</h2>
+          <p>{{ .Description }}</p>
+          <ul>
+          {{ range $key, $taxonomy := .Site.Taxonomies.categories }}
+            {{ if eq $key $pagecat }}
+              {{ range $taxonomy.Pages }}
+              <li>
+                <a href="{{ .Permalink }}">{{ .Title }}</a><br />
+                {{ .Summary }}
+              </li>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          </ul>
+        </div>
+        {{ partial "sidebar.html" . }}
+    </div>
+</div>
 {{ end }}
