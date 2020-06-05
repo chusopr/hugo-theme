@@ -58,9 +58,9 @@
     <section class="visible-md visible-lg">
 	<hr><h5><a href="{{ "/top/about" | relLangURL }}">About me</a></h5>
         <div class="short-about">
-            {{ with .Site.Params.sidebar_avatar }}
-            <a href="{{ "/top/about" | relLangURL }}">
-               <img src="{{ . | relURL }}" alt="avatar" style="cursor: pointer" />
+            {{ with $.Site.GetPage "/about" }}
+            <a href="{{ .Permalink }}">
+               <img src="{{ .Site.Params.sidebar_avatar }}" alt="avatar" style="cursor: pointer" />
             </a>
             {{ end }}
             {{ with .Site.Params.sidebar_about_description }}
