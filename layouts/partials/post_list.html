@@ -1,23 +1,21 @@
 <!-- post list -->
 {{ range $index, $element := $.Paginator.Pages }}
 <div class="post-preview">
-    <a href="{{ .Permalink }}">
-        <h2 class="post-title">
-            {{ .Title }}
-        </h2>
-	{{with .Params.subtitle }}
-        <h3 class="post-subtitle">
-            {{ . }}
-        </h3>
-	{{ end }}
-        <div class="post-content-preview">
-	{{ with .Description }}
-            {{ . }}
-        {{ else }}
-            {{ .Summary}}
-       {{ end }}
-        </div>
-    </a>
+    <h2 class="post-title">
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+    </h2>
+    {{with .Params.subtitle }}
+    <h3 class="post-subtitle">
+        {{ . }}
+    </h3>
+    {{ end }}
+    <div class="post-content-preview">
+    {{ with .Description }}
+        {{ . }}
+    {{ else }}
+        {{ .Summary}}
+    {{ end }}
+    </div>
     <p class="post-meta">
     Posted by {{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }} {{ .Date.Format "Monday, January 2, 2006" }}
     <!-- Don't show "Last Modified on" if update happened on the same day. -->
