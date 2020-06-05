@@ -1,6 +1,6 @@
 
 <!-- Sidebar Container -->
-<div class="
+<aside class="
     col-lg-3 col-lg-offset-0
     col-md-3 col-md-offset-0
     col-sm-12
@@ -13,7 +13,7 @@
         <h5>{{ i18n "translations" }}</h5>
         <menu class="sidebar-menu-list languages">
             {{ range $.AllTranslations }}
-	    <li><img src="/img/lang/{{ .Language }}.png"> <a lang="{{ .Language }}" hreflang="{{ .Language }}" href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
+	    <li><img src="/img/lang/{{ .Language }}.png" alt=""> <a lang="{{ .Language }}" hreflang="{{ .Language }}" href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
             {{ end}}
         </menu>
     </section>
@@ -277,4 +277,4 @@
         </ul>
     </section>
     {{ end }}
-</div>
+</aside>
