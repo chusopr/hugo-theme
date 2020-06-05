@@ -13,9 +13,11 @@
                 <div class="post-heading">
                     <div class="tags">
                         {{ range .Params.tags }}
-                        <a class="tag" href="{{ "/tag/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">
-                            {{ . }}
+                        {{ with $.Site.GetPage (printf "/tags/%s" .) }}
+                        <a class="tag" href="{{ .Permalink }}" title="{{ .Title }}">
+                            {{ .Title }}
                         </a>
+                        {{ end }}
                         {{ end }}
                     </div>
                     <h1>{{ .Title }}</h1>
