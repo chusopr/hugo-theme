@@ -56,9 +56,11 @@
     <!-- Short About -->
 	{{ if .Site.Params.about_me }}
     <section class="visible-md visible-lg">
-	<hr><h5><a href="{{ "/top/about" | relLangURL }}">About me</a></h5>
+        {{ with $.Site.GetPage .Site.Params.about_page }}
+	<hr><h5><a href="{{ .Permalink }}">About me</a></h5>
+        {{ end }}
         <div class="short-about">
-            {{ with $.Site.GetPage "/about" }}
+            {{ with $.Site.GetPage .Site.Params.about_page }}
             <a href="{{ .Permalink }}">
                <img src="{{ .Site.Params.sidebar_avatar }}" alt="avatar" style="cursor: pointer" />
             </a>
