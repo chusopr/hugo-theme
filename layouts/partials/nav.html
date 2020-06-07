@@ -28,9 +28,9 @@
                         <li><a href="{{.href | relLangURL}}">{{.title}}</a></li>
                     {{ end }}
 
-                    {{ if .Site.Params.algolia_search }}
+                    {{ if .Site.Params.enable_search }}
 		    <li>
-                        <a href="{{ "search" | relURL }}">SEARCH <img src="{{ "img/search.png" | relURL }}" height="15" style="cursor: pointer;" alt="Search"></a>
+		        <form class="search" method="get" action="{{ "search" | relURL }}"><input type="text" name="s"><button type="submit"><img src="{{ "img/search.png" | relURL }}" height="15" style="cursor: pointer;" alt="Search"></button></form>
 		    </li>
                     {{ end }}
                 </ul>
