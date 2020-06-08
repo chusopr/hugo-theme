@@ -1,20 +1,20 @@
 # theme.toml template for a Hugo theme
 # See https://github.com/spf13/hugoThemes#themetoml for an example
 
-name = "Clean White"
-license = "Apache"
-licenselink = "https://github.com/zhaohuabing/hugo-theme-cleanwhite/blob/master/LICENSE"
-description = "A clean, elegant blog theme for hugo"
-homepage = "https://github.com/zhaohuabing/hugo-theme-cleanwhite"
-tags = [ "minimal", "responsive", "blog","light", "clean", "search"]
+name = "Chuso Hugo theme"
+license = "Artistic-2"
+licenselink = "https://github.com/chusopr/hugo-theme/blob/master/LICENSE"
+description = "A clean, elegant blog theme for hugo. Based on zhaohuabing's cleanwhite theme with some customizations"
+homepage = "https://github.com/chuso/hugo-theme"
+tags = [ "minimal", "responsive", "blog","light", "clean", "search", "multilingual"]
 features = ["disqus", "site search", "responsive", "google analytics", "side bar"]
 min_version = 0.10
 
 [author]
-  name = "Huabing Zhao"
-  homepage = "https://github.com/zhaohuabing"
+  name = "Jesus Perez (Chuso)"
+  homepage = "https://chuso.net"
 
 # If porting an existing theme
 [original]
-  name = "huxblog"
-  homepage = "https://github.com/Huxpro/huxpro.github.io"
+  name = "hugo-theme-cleanwhite"
+  homepage = "https://github.com/zhaohuabing/hugo-theme-cleanwhite"
