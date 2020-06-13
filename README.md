@@ -22,3 +22,4 @@ Some of the customizations include:
 * Make markup semantics more meaningful.
 * Update Font Awesome to make more icons available.
 * Add client-side search.
+* Use Staticman for comments with support for nested comments.

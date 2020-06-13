@@ -120,6 +120,9 @@
                     </p>
                     {{ end }}
                 </footer>
+		<aside>
+                {{ partial "comments.html" . }}
+		</aside>
             </article>
 
             <hr class="end">
@@ -137,8 +140,6 @@
                 </li>
                 {{ end }}
             </ul>
-
-            {{ partial "comments.html" . }}
 
         </div>
         <!-- Sidebar Container -->

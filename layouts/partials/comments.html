@@ -1,17 +1,71 @@
-<!-- disqus 评论框 end -->
-<div id="disqus-comment"></div>
-{{ if .Site.Params.disqus_proxy }}
-<script src="{{ "js/iDisqus.js" | relURL }}"></script>
+{{ if .Site.Params.staticman }}
+
+<h2>Comments</h2>
+
+{{ if fileExists (printf "data/comments/%s" .UniqueID) }}
+  <script>
+    function comment_reply(id)
+    {
+      var comment = document.getElementById("comment-" + id);
+      var reply_notice = document.getElementById("comment-reply-notice");
+      var reply_notice_text = document.getElementById("comment-reply-notice-text");
+      var comment_reply_id = document.getElementById("comment-reply-id");
+      comment_reply_id.value = id;
+      reply_notice_text.textContent = "Replying to comment from " + comment.dataset.author + " on " + comment.dataset.date + ". ";
+      reply_notice.style.display = 'block';
+    }
+
+    function cancel_comment_reply()
+    {
+      var reply_notice = document.getElementById("comment-reply-notice");
+      var comment_reply_id = document.getElementById("comment-reply-id");
+      comment_reply_id.value = "";
+      reply_notice.style.display = 'none';
+    }
+
+  </script>
+
+  {{ partial "comments-list" (dict "comments" $.Site.Data.comments "entryID" $.File.UniqueID "parentCommentID" "" "Page" $.Page) }}
+{{ end }}
+
+<p id="comment-posted" class="notice hidden">Your comment is pending moderation.<br /><a href="https://github.com/{{ .Site.Params.staticman.user }}/{{ .Site.Params.staticman.repository }}/pulls/app%2Fstaticman-net">Check moderation queue.</a></p>
 <script>
-var disq = new iDisqus('disqus-comment', {
-    forum: '{{ .Site.DisqusShortname}}',
-    api: '{{ .Site.Params.disqus_proxy }}',
-	site: '{{ .Site.Params.disqus_site }}',
-    mode: 1,
-    timeout: 5000,
-    init: true
-});
+if (document.location.hash == '#comment-posted') document.getElementById('comment-posted').classList.add("show_hidden");
 </script>
-{{ else if .Site.DisqusShortname }}
-{{ template "_internal/disqus.html" . }}
+
+<h3 id="post-comment">Post your comment</h3>
+
+<p>Comments are moderated, you can expect delay until they are published.</p>
+
+{{ $staticman := index (readFile "staticman.yml" | transform.Unmarshal) .Site.Params.staticman.property }}
+
+<p>Your email address is only used to fetch your Gravatar image and it's not stored.{{ if not (in $staticman.requiredFields "email") }}<br />You can omit it if you want.{{ end }}</p>
+
+<p id="comment-reply-notice" class="notice hidden"><span id="comment-reply-notice-text"></span><a href="#" onclick="cancel_comment_reply();return false;">Cancel</a></p>
+
+<form method="POST" action="https://dev.staticman.net/v3/entry/github/{{ .Site.Params.staticman.user }}/{{ .Site.Params.staticman.repository }}/{{ $staticman.branch }}/{{ .Site.Params.staticman.property }}" class="comments">
+  <input name="options[entryId]" type="hidden" value="{{ $.File.UniqueID }}">
+  <input name="options[redirect]" type="hidden" value="{{ .Permalink }}#comment-posted">
+  <input id="comment-reply-id" name="fields[replyTo]" type="hidden" value="">
+  <div>
+    <fieldset>
+      <div>
+        <div><label {{ if in $staticman.requiredFields "name"}}class="required"{{ end }} for="comment_name">Name</label></div><div><input id="comment_name" name="fields[name]" type="text"></div>
+        <div><label {{ if in $staticman.requiredFields "email"}}class="required"{{ end }} for="comment_email">E-mail</label></div><div><input id="comment_email" name="fields[email]" type="email"></div>
+      </div>
+      <div>
+        <div><label {{ if in $staticman.requiredFields "url"}}class="required"{{ end }} for="comment_url">Website</label></div><div><input id="comment_url" name="fields[url]" type="url"></div>
+      </div>
+    </fieldset>
+    <div>* Mandatory field.</div>
+    <div>
+      <label for="comment_message">Message</label><textarea id="comment_message" name="fields[message]" rows="5"></textarea>
+    </div>
+  </div>
+
+  <p class="notice hidden" id="sending-comment">Processing comment, please wait.</p>
+  <input type="submit" value="Submit" onclick="document.getElementById('sending-comment').classList.add('show_hidden');return true;">
+  <span><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a> accepted.</span>
+</form>
+
 {{ end }}
