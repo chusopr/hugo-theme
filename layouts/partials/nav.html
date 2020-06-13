@@ -30,7 +30,7 @@
 
                     {{ if .Site.Params.enable_search }}
 		    <li>
-		        <form class="search" method="get" action="{{ "search" | relURL }}"><input type="text" name="s"><button type="submit"><img src="{{ "img/search.png" | relURL }}" height="15" style="cursor: pointer;" alt="Search"></button></form>
+		        <form class="search" method="get" action="{{ "search" | relURL }}"><input type="search" name="s"><button type="submit"><img src="{{ "img/search.png" | relURL }}" height="15" style="cursor: pointer;" alt="Search"></button></form>
 		    </li>
                     {{ end }}
                 </ul>
