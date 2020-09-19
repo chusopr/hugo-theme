@@ -27,10 +27,10 @@
         {{/* range $category := where (where (sort .Site.Pages "URL") "Type" "categories") "IsPage" true */}}
         {{ $categories := where (where .Site.Pages "Type" "categories") "IsPage" true }}
         {{ range $category := $categories }}
-            {{ if not (findRE "^/.+/.+/" $category.URL) }}
+            {{ if not (findRE "^/.+/.+/" $category.RelPermalink) }}
                 <li>
                     <a href="{{ $category.Permalink }}">{{ $category.Title }}</a>
-		    {{ partial "sidebar-subcategories" (dict "category" $category.URL "categories" $categories) }}
+		    {{ partial "sidebar-subcategories" (dict "category" $category.RelPermalink "categories" $categories) }}
                 </li>
             {{ end }}
         {{ end }}
