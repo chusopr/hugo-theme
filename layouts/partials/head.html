@@ -5,41 +5,33 @@
 
     <!-- start ogp -->
     <meta property="og:site_name" content="{{ .Site.Title }}">
-    <meta property="og:type" content="article">
 
-    {{ if .Params.thumbnail }}
-    <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.thumbnail }}">
-    <meta property="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.thumbnail }}" />
-    {{ else }}
-    <meta property="og:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.header_image }}">
-    <meta property="twitter:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.header_image }}" />
+    {{ with .Site.Params.social.twitter }}
+    <!-- Hugo Twitter cards template tries to laod authors, but it's not implemented yet -->
+    <meta name="twitter:creator" content="@{{ . }}"/>
     {{ end }}
+    {{ template "_internal/twitter_cards.html" . }}
+
+    {{- with .Params.tags }}{{ range first 6 . }}
+    <!-- Hugo Facebook template tries to load tags, but that's conditional to authors, which is not implemented yet -->
+    <meta property="article:tag" content="{{ . }}" />
+    {{- end }}{{ end -}}
+    {{ template "_internal/opengraph.html" . }}
+
+    {{ template "_internal/schema.html" . }}
 
     {{ if .Params.title }}
     <meta name="title" content="{{ .Params.title }}" />
-    <meta property="og:title" content="{{ .Params.title }}" />
-    <meta property="twitter:title" content="{{ .Params.title }}" />
     {{ else }}
     <meta name="title" content="{{ .Site.Params.title }}" />
-    <meta property="og:title" content="{{ .Site.Params.title }}" />
-    <meta property="twitter:title" content="{{ .Site.Params.title }}" />
     {{ end }}
 
     {{ if .Params.description }}
     <meta name="description" content="{{ .Params.description }}">
-    <meta property="og:description" content="{{ .Params.description }}" />
-    <meta property="twitter:description" content="{{ .Params.description }}" />
     {{ else }}
     <meta name="description" content="{{ .Site.Params.description }}">
-    <meta property="og:description" content="{{ .Site.Params.description }}" />
-    <meta property="twitter:description" content="{{ .Site.Params.description }}" />
     {{ end }}
 
-    {{ if .Params.summary }}
-    <meta property="twitter:card" content="{{ .Params.summary }}" />
-    {{ else }}
-    <meta property="twitter:card" content="summary" />
-    {{ end }}
     <!-- end ogp -->
 
     <meta name="keyword"  content="{{ .Site.Params.keyword }}">
