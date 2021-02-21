@@ -23,11 +23,16 @@
     <section>
         <hr class="hidden-sm hidden-xs">
         <h5>{{ i18n "categories" }}</h5>
-        <menu class="sidebar-menu-list languages">
-        {{ range $category := where (where .Site.Pages "Type" "categories") "IsPage" true }}
-        <li>
-            <a href="{{ $category.Permalink }}">{{ $category.Title }}</a>
-        </li>
+        <menu class="sidebar-menu-list">
+        {{/* range $category := where (where (sort .Site.Pages "URL") "Type" "categories") "IsPage" true */}}
+        {{ $categories := where (where .Site.Pages "Type" "categories") "IsPage" true }}
+        {{ range $category := $categories }}
+            {{ if not (findRE "^/.+/.+/" $category.RelPermalink) }}
+                <li>
+                    <a href="{{ $category.Permalink }}">{{ $category.Title }}</a>
+		    {{ partial "sidebar-subcategories" (dict "category" $category.RelPermalink "categories" $categories) }}
+                </li>
+            {{ end }}
         {{ end }}
         </menu>
     </section>

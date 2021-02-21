@@ -1,8 +1,10 @@
-{{ if .Site.Params.staticman }}
+{{ $fileUid := "" }}
+{{ with .File }}{{ $fileUid = .UniqueID }}{{ end }}
+{{ if and .Site.Params.staticman (not (eq $fileUid "")) }}
 
 <h2>Comments</h2>
 
-{{ if fileExists (printf "data/comments/%s" .UniqueID) }}
+{{ if fileExists (printf "data/comments/%s" .File.UniqueID) }}
   <script>
     function comment_reply(id)
     {

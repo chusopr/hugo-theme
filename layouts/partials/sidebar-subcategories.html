@@ -1,0 +1,18 @@
+{{ if gt (len .categories) 0 }}
+{{ $subcat_found := false }}
+    {{ range $subcategory := .categories }}
+        {{ if and (findRE (printf "^%s.+" $.category) $subcategory.RelPermalink) (not (findRE (printf "^%s.+/.+/" $.category) $subcategory.RelPermalink)) }}
+            {{ if not $subcat_found }}
+	        <ul>
+		{{ $subcat_found = true }}
+	    {{ end }}
+            <li>
+                <a href="{{ $subcategory.Permalink }}">{{ $subcategory.Title }}</a>
+		{{ partial "sidebar-subcategories" (dict "category" $subcategory.RelPermalink "categories" $.categories) }}
+            </li>
+        {{ end }}
+    {{ end }}
+    {{ if $subcat_found }}
+        </ul>
+    {{ end }}
+{{ end }}

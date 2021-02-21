@@ -190,3 +190,16 @@ button.close {
     padding: 15px 0;
     display: none;
 }
+
+menu, menu ul {
+    list-style-type: none;
+}
+
+menu {
+    padding: 0;
+}
+
+menu ul {
+  margin-bottom: 0px;
+  padding-left: 20px;
+}
