@@ -72,7 +72,7 @@
             <article>
                 <header class="post-header">
                     <h1>{{ .Title }}</h1>
-                    {{ if .Site.Params.show_author }}
+                    <span class="article-author">{{ if .Site.Params.show_author }}
                     By
                     {{ if .Params.author }}
                         {{ .Params.author }}
@@ -80,6 +80,8 @@
                         {{ .Site.Title }}
                     {{ end }}
                     {{ end }}
+                    </span>
+                    <span class="article-date">
                     on
                     {{ .Date.Format "Monday, January 2, 2006" }}
                     {{ if .Site.Params.page_view_conter }}
@@ -88,11 +90,14 @@
                     {{ if (and (not .Lastmod.IsZero) (not (eq (dateFormat "2006-01-02" .Lastmod) (dateFormat "2006-01-02" .Date)))) }}
                     <br>Last Modified on {{ dateFormat "Monday, January 2, 2006" .Params.LastMod }}
                     {{ end }}
+                    </span>
 
+                    <span class="article-toc">
                     {{ if not (eq (.Param "showtoc") false) }}
                         <h2>TOC</h2>
                     {{.TableOfContents}}
                     {{ end }}
+                    </span>
                 </header>
                 {{ .Content }}
 
