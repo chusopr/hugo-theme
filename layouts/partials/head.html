@@ -5,6 +5,7 @@
 
     <!-- start ogp -->
     <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:locale" content="{{ .Language }}">
 
     {{ with .Site.Params.social.twitter }}
     <!-- Hugo Twitter cards template tries to laod authors, but it's not implemented yet -->
@@ -28,11 +29,16 @@
 
     {{ if .Params.description }}
     <meta name="description" content="{{ .Params.description }}">
-    {{ else }}
+    {{ else if .Summary }}
+    <meta name="description" content="{{ .Summary }}">
+    {{ else if .Site.Params.description }}
     <meta name="description" content="{{ .Site.Params.description }}">
     {{ end }}
 
     <!-- end ogp -->
+    {{ if .Params.images }}
+    <meta name="thumbnail" content="{{ index .Params.images 0 | absURL }}" />
+    {{ end }}
 
     <meta name="keyword"  content="{{ .Site.Params.keyword }}">
     <link rel="shortcut icon" href="{{ "img/favicon.ico" | relURL }}">
