@@ -71,10 +71,10 @@
             </a>
             {{ end }}
             {{ with .Site.Params.sidebar_about_description }}
-                <p>{{ . }}</p>
+                <p>{{ . | safeHTML }}</p>
             {{ end }}
            <!-- SNS Link -->
-           <ul class="list-inline"> 
+           <ul class="list-inline">
                {{ if .Site.Params.social.rss }}
                <li>
                    <a href='{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}' rel="alternate" type="application/rss+xml" title="{{ .Site.Title | default "" }}" >
@@ -82,6 +82,16 @@
                            <i class="fas fa-circle fa-stack-2x"></i>
                            <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                        </span>
+                   </a>
+               </li>
+               {{ end }}
+               {{ if .Site.Params.social.email }}
+               <li>
+                   <a href="mailto:{{ .Site.Params.social.email }}">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
                    </a>
                </li>
                {{ end }}
@@ -100,7 +110,7 @@
                    <a rel="me" target="_blank" href="{{ . }}">
                        <span class="fa-stack fa-lg">
                            <i class="fas fa-circle fa-stack-2x"></i>
-                           <i class="fab fa-zhihu fa-stack-1x fa-inverse">知</i>
+                           <i class="fab fa-stack-1x fa-inverse">知</i>
                        </span>
                    </a>
                </li>
@@ -130,7 +140,7 @@
                    <a rel="me" target="_blank" href="{{ . | relURL}}">
                        <span class="fa-stack fa-lg">
                            <i class="fas fa-circle fa-stack-2x"></i>
-                           <i class="fab fa-wechat fa-stack-1x fa-inverse"></i>
+                           <i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
                        </span>
                    </a>
                </li>
@@ -259,6 +269,36 @@
             </div>
     </section>
 	{{ end }}
+    <!-- Bookmarks -->
+    {{ if .Site.Params.bookmarks }}
+    <section>
+        <hr>
+        <h5>QUICK LINKS</h5>
+        <ul class="list-inline">
+            {{ range .Site.Params.bookmark_link }}
+            <li><a target="_blank" href="{{.href }}">{{.title}}</a></li>
+            {{ end }}
+        </ul>
+    </section>
+    {{ end }}
+    <!-- Featured Tags -->
+    {{ if .Site.Params.featured_tags }}
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+            {{ $featured_condition_size := .Site.Params.featured_condition_size }}
+            {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+               {{ if gt (len $taxonomy.Pages) $featured_condition_size }}
+                    <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" title="{{ $name }}">
+                        {{ $name }}
+                    </a>
+               {{ end }}
+            {{ end }}
+        </div>
+    </section>
+    {{ end }}
+
     <!-- Friends Blog -->
     {{ if .Site.Params.friends }}
     <section>
@@ -266,22 +306,22 @@
         <h5>FRIENDS</h5>
         <ul class="list-inline">
             {{ range .Site.Params.friend_link }}
-            <li><a target="_blank" href="{{.href | relLangURL}}">{{.title}}</a></li>
+            <li><a target="_blank" href="{{.href}}">{{.title}}</a></li>
             {{ end }}
         </ul>
     </section>
     {{ end }}
-
-    <!-- Bookmarks -->
-    {{ if .Site.Params.bookmarks }}
+    {{ if .Site.Params.publications }}
     <section>
-        <hr>
-        <h5>BOOKMARKS</h5>
-        <ul class="list-inline">
-            {{ range .Site.Params.bookmark_link }}
-            <li><a target="_blank" href="{{.href | relLangURL}}">{{.title}}</a></li>
-            {{ end }}
-        </ul>
+        <hr class="hidden-sm hidden-xs">
+        <h5>{{ .Site.Params.publications.Title }}</h5>
+        <div class="short-about">
+        {{ range .Site.Params.publications.items }}
+        <a href="{{.href}}">
+            <img src="{{.image}}" alt="avatar" style="cursor: pointer" />
+        </a>
+        {{ end }}
+        </div>
     </section>
     {{ end }}
 </aside>

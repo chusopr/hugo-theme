@@ -71,3 +71,23 @@ if (document.location.hash == '#comment-posted') document.getElementById('commen
 </form>
 
 {{ end }}
+
+
+{{ if .Site.Params.artalk_enable }}
+<link href="{{ $.Site.Params.artalk_server }}/dist/Artalk.css" rel="stylesheet" />
+<script src="{{ $.Site.Params.artalk_server }}/dist/Artalk.js"></script>
+
+<!-- Artalk -->
+<div id="Comments"></div>
+
+<script>
+    Artalk.init({
+        el: '#Comments',
+        pageKey: '{{ .Permalink }}',
+        pageTitle: '{{ .Title }}',
+        server: '{{ $.Site.Params.artalk_server }}',
+        site: '{{ $.Site.Params.artalk_site }}',
+    })
+</script>
+
+{{ end }}
